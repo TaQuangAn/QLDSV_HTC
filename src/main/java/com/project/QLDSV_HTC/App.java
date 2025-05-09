@@ -1,5 +1,7 @@
 package com.project.QLDSV_HTC;
 
+import org.springframework.context.ConfigurableApplicationContext;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,16 +10,33 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+
 /**
  * JavaFX App
  */
+
+@SpringBootApplication
 public class App extends Application {
 
     private static Scene scene;
-
+    private static App instance;
+    private ConfigurableApplicationContext springContext;
+    
+    
+    @Override
+    public void init() {
+    	instance = this;
+        // Khởi tạo Spring context
+        springContext = SpringApplication.run(App.class);
+    }
+    
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -28,11 +47,42 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+     // Sử dụng Spring context để cung cấp controller
+        fxmlLoader.setControllerFactory(App.getInstance().springContext::getBean);
         return fxmlLoader.load();
     }
+    
+    private static App getInstance() {
+        return instance; // Trả về instance đã lưu
+    }
 
+    private static String currentUser;
+    private static String currentRole;
+
+    public static void setCurrentUser(String user, String role) {
+        currentUser = user;
+        currentRole = role;
+    }
+
+    public static String getCurrentUser() {
+        return currentUser;
+    }
+
+    public static String getCurrentRole() {
+        return currentRole;
+    }
+    
+    @Override
+    public void stop() throws Exception {
+        if (springContext != null) {
+            springContext.close(); // Đóng Spring context
+        }
+        System.out.println("Ứng dụng đã dừng.");
+        System.exit(0); // Ép JVM thoát hoàn toàn
+    }
+    
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
 }
