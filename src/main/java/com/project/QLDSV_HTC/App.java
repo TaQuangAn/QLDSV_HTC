@@ -2,6 +2,8 @@ package com.project.QLDSV_HTC;
 
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.project.QLDSV_HCT.session.Session;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,6 @@ import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 
 /**
@@ -56,24 +57,12 @@ public class App extends Application {
         return instance; // Trả về instance đã lưu
     }
 
-    private static String currentUser;
-    private static String currentRole;
 
-    public static void setCurrentUser(String user, String role) {
-        currentUser = user;
-        currentRole = role;
-    }
-
-    public static String getCurrentUser() {
-        return currentUser;
-    }
-
-    public static String getCurrentRole() {
-        return currentRole;
-    }
     
     @Override
     public void stop() throws Exception {
+    	Session.closeConnection(); // Đóng kết nối SQL Server
+        super.stop();
         if (springContext != null) {
             springContext.close(); // Đóng Spring context
         }

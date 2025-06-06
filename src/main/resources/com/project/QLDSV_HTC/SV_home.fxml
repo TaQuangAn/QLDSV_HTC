@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.QLDSV_HTC.controller.LoginController">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="332.0" minWidth="10.0" prefWidth="222.99998779296874" />
+    <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="453.5999755859375" minWidth="10.0" prefWidth="376.60001220703117" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="98.4" minHeight="10.0" prefHeight="84.79999389648438" valignment="TOP" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="104.00001831054689" minHeight="43.199987792968756" prefHeight="76.8" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="219.00002136230472" minHeight="10.0" prefHeight="89.99998779296877" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="219.00002136230472" minHeight="10.0" prefHeight="145.60001220703128" />
+  </rowConstraints>
+  <children>
+    <Label fx:id="errorLabel" text="" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Sinh viên" GridPane.columnIndex="1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+  </children>
+</GridPane>
